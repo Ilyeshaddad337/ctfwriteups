@@ -2,12 +2,12 @@
 
 ## Challenge:
 
-![challenge](https://github.com/Ilyeshaddad337/ctfwriteups/blob/e4ed38d63230fd22d4cb40e685566a74c2689352/AlphaCTF_2k_24/web/SysSadmin/assets/challenge.png?raw=true)
+![challenge](https://github.com/Ilyeshaddad337/ctfwriteups/blob/795ea1b943dcbffda57cc71d151f2b5996be526b/AlphaCTF_2k_24/web/SysSadmin/assets/challenge.png?raw=true)
 
 ## Solution
 
 when trying to access the website we get that:
-![first response](https://github.com/Ilyeshaddad337/ctfwriteups/blob/e4ed38d63230fd22d4cb40e685566a74c2689352/AlphaCTF_2k_24/web/SysSadmin/assets/1.png?raw=true)
+![first response](https://github.com/Ilyeshaddad337/ctfwriteups/blob/795ea1b943dcbffda57cc71d151f2b5996be526b/AlphaCTF_2k_24/web/SysSadmin/assets/1.png?raw=true)
 
 ### First step (Session cracking)
 
@@ -36,7 +36,7 @@ i tried changing it to sysadmin then encoded it but it didn't work, clearly beca
 until here there was no hint provided and i was 24h without sleep and too tired, that's why i told myself "nah i don't think cracking the cookie is part of the solution"
 and went to another challenge :)
 then a hint was added, here it is:
-![first response](https://github.com/Ilyeshaddad337/ctfwriteups/blob/e4ed38d63230fd22d4cb40e685566a74c2689352/AlphaCTF_2k_24/web/SysSadmin/assets/2.png?raw=true)
+![first response](https://github.com/Ilyeshaddad337/ctfwriteups/blob/795ea1b943dcbffda57cc71d151f2b5996be526b/AlphaCTF_2k_24/web/SysSadmin/assets/2.png?raw=true)
 
 "WHAT A STUPID THOUGHT I HAD!"
 
@@ -77,12 +77,13 @@ I send a request to the server with this cookies and I'm IN.
 
 you think we are done ? we didn't even start yet.
 now when accessing the website with our new cookies we get the following page:
-![dashboard page](https://github.com/Ilyeshaddad337/ctfwriteups/blob/e4ed38d63230fd22d4cb40e685566a74c2689352/AlphaCTF_2k_24/web/SysSadmin/assets/3.png?raw=true)
+
+![dashboard page](https://github.com/Ilyeshaddad337/ctfwriteups/blob/795ea1b943dcbffda57cc71d151f2b5996be526b/AlphaCTF_2k_24/web/SysSadmin/assets/3.png?raw=true)
 
 #### Health checker page
 
 When accessing that page we are faced with this form :
-![health checker](https://github.com/Ilyeshaddad337/ctfwriteups/blob/e4ed38d63230fd22d4cb40e685566a74c2689352/AlphaCTF_2k_24/web/SysSadmin/assets/4.png?raw=true)
+![health checker](https://github.com/Ilyeshaddad337/ctfwriteups/blob/795ea1b943dcbffda57cc71d151f2b5996be526b/AlphaCTF_2k_24/web/SysSadmin/assets/4.png?raw=true)
 
 I checked the source code of the page and found out the endpoint it is sending to , and started testing it with python.
 after some testing i figured out the following constraints:
@@ -97,9 +98,9 @@ Here i thought there is nothing i can do and went to check the second page (repo
 #### Reports page
 
 here is the page :
-![reports page](https://github.com/Ilyeshaddad337/ctfwriteups/blob/e4ed38d63230fd22d4cb40e685566a74c2689352/AlphaCTF_2k_24/web/SysSadmin/assets/5.png?raw=true)
+![reports page](https://github.com/Ilyeshaddad337/ctfwriteups/blob/795ea1b943dcbffda57cc71d151f2b5996be526b/AlphaCTF_2k_24/web/SysSadmin/assets/5.png?raw=true)
 when accessing one of those reports we get:
-![report 1](https://github.com/Ilyeshaddad337/ctfwriteups/blob/e4ed38d63230fd22d4cb40e685566a74c2689352/AlphaCTF_2k_24/web/SysSadmin/assets/6.png?raw=true)
+![report 1](https://github.com/Ilyeshaddad337/ctfwriteups/blob/795ea1b943dcbffda57cc71d151f2b5996be526b/AlphaCTF_2k_24/web/SysSadmin/assets/6.png?raw=true)
 
 when I saw the "reportId" parameter in the url I immediatly thought about LFI .
 i tried a simple payload `../../../etc/passwd` I got this :
@@ -107,7 +108,7 @@ i tried a simple payload `../../../etc/passwd` I got this :
 
 Aha we're getting filtered !
 I tried parameter polution to see how it would behave and got this error:
-![error 1](https://github.com/Ilyeshaddad337/ctfwriteups/blob/e4ed38d63230fd22d4cb40e685566a74c2689352/AlphaCTF_2k_24/web/SysSadmin/assets/7.png?raw=true)
+![error 1](https://github.com/Ilyeshaddad337/ctfwriteups/blob/795ea1b943dcbffda57cc71d151f2b5996be526b/AlphaCTF_2k_24/web/SysSadmin/assets/7.png?raw=true)
 
 from this i concluded two things:
 
@@ -121,7 +122,7 @@ now let's try it with this payload:
 `...//....//....//....//....//etc/passwd`
 
 and bang we got LFI !!
-![lfi](https://github.com/Ilyeshaddad337/ctfwriteups/blob/e4ed38d63230fd22d4cb40e685566a74c2689352/AlphaCTF_2k_24/web/SysSadmin/assets/8.png?raw=true)
+![lfi](https://github.com/Ilyeshaddad337/ctfwriteups/blob/795ea1b943dcbffda57cc71d151f2b5996be526b/AlphaCTF_2k_24/web/SysSadmin/assets/8.png?raw=true)
 
 let's leak the app source code:
 `....//....//....//....//....//app/index.js`
@@ -451,4 +452,4 @@ print(r.text)
 
 boom you have a reverse shell! navigate to the root and print the flag.
 
-![flag](https://github.com/Ilyeshaddad337/ctfwriteups/blob/e4ed38d63230fd22d4cb40e685566a74c2689352/AlphaCTF_2k_24/web/SysSadmin/assets/9.png?raw=true)
+![flag](https://github.com/Ilyeshaddad337/ctfwriteups/blob/795ea1b943dcbffda57cc71d151f2b5996be526b/AlphaCTF_2k_24/web/SysSadmin/assets/9.png?raw=true)
