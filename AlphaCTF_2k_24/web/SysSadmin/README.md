@@ -83,7 +83,8 @@ now when accessing the website with our new cookies we get the following page:
 
 When accessing that page we are faced with this form :
 ![health checker](https://github.com/Ilyeshaddad337/ctfwriteups/blob/e4ed38d63230fd22d4cb40e685566a74c2689352/AlphaCTF_2k_24/web/SysSadmin/4.png?raw=true)
-I checked the source code of the page i found out the endpoint it is sending to , and started testing it with python.
+
+I checked the source code of the page and found out the endpoint it is sending to , and started testing it with python.
 after some testing i figured out the following constraints:
 
 - if you enter a url that doesn't have a '.' on it (like "http://localhost") it will output this message: "URL must start with "http://" or "https://" and contain a dot in the middle."
